@@ -21,7 +21,7 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
-  
+   authorize! :manage, @game
   end
 
   # POST /games
@@ -43,6 +43,7 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1
   # PATCH/PUT /games/1.json
   def update
+    authorize! :manage, @game
     respond_to do |format|
       if @game.update(game_params)
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
@@ -57,6 +58,7 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
+    authorize! :manage, @game
     @game.destroy
     respond_to do |format|
       format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
