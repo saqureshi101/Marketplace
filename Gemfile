@@ -48,5 +48,6 @@ group :development do
   gem 'devise'
   gem 'cancan'
   gem 'paperclip'
+  gem 'dotenv-rails', groups: [:development]
 end
 
