@@ -1,2 +1,7 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="jumbotron">
+    <h1>Welcome to Gaming Market Place</h1>
+    <p>Easiest Way to buy & Sell Your Favorite Games!</p>
+    
+    <%= link_to "Games", games_path, class: "btn btn-primary" %>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
+</div>
