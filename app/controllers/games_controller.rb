@@ -1,10 +1,12 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
 
+# Ensure the user is logged in.
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.where(availability: true)
   end
 
   # GET /games/1
@@ -19,13 +21,14 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+  
   end
 
   # POST /games
   # POST /games.json
   def create
-    @game = Game.new(game_params)
-
+    
+  @game = current_user.games.new(game_params)
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }

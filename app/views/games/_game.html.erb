@@ -1,0 +1,12 @@
+ <div class="col-md-3">
+    <div class="thumbnail">
+        	<%= link_to game_path(game) do %>
+	        <%= image_tag "madden.jpg", class: "img-responsive" %>
+        <% end %>
+
+    <div class="caption">
+      <p><strong><%= link_to game.name, game_path(game) %></strong></p>
+       <p>$<%= game.price.to_f / 100 %></p>
+   </div>
+    </div>
+  </div>
