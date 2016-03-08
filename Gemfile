@@ -49,5 +49,6 @@ group :development do
   gem 'cancan'
   gem 'paperclip'
   gem 'dotenv-rails', groups: [:development]
+  gem 'aws-sdk', '< 2.0 '
 end
 
