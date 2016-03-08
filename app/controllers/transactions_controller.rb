@@ -10,7 +10,7 @@ class TransactionsController< ApplicationController
 				currency: "usd",
 				card: token,
 				description: current_user.email)
-
+			
 			@sale = game.sales.create!(buyer_email: current_user.email)
 			redirect_to pickup_url(guid: @sale.guid)
 		

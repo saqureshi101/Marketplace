@@ -6,8 +6,11 @@ class CreateSales < ActiveRecord::Migration
       t.integer :amount
       t.string :guid
       t.integer :book_id
-
+      t.integer :game_id
       t.timestamps null: false
     end
   end
 end
+
+
+# add a new migration 
