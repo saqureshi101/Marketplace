@@ -1,10 +1,9 @@
 class TransactionsController< ApplicationController
-
-		def create
+	def create
 		game = Game.find_by!(slug: params[:slug])
 		token = params[:stripeToken]
-
-	begin
+		
+		begin
 			
 			charge = Stripe::Charge.create(
 				amount: game.price,
@@ -14,13 +13,10 @@ class TransactionsController< ApplicationController
 
 			@sale = game.sales.create!(buyer_email: current_user.email)
 			redirect_to pickup_url(guid: @sale.guid)
-
-			rescue Stripe::CardError => e 
+		
+		rescue Stripe::CardError => e 
 			@error = e 
 			redirect_to game_path(game), notice: @error
-		end
-		rescue
-			
 		end
 	end
 
@@ -28,5 +24,4 @@ class TransactionsController< ApplicationController
 		@sale = Sale.find_by!(guid: params[:guid])
 		@game = @sale.game
 	end
-
 end

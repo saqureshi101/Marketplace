@@ -9,6 +9,30 @@
       <h3><%= @game.name %> - <%= @game.genre %></h3>
       <p class="justify"><%= @game.description %></p>
       <h4 class="text-right">$<%= @game.price.to_f / 100 %></h4>
+
+    <% if current_user %>
+
+
+
+<%= form_tag buy_path(slug: @game.slug) do  %>
+  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+    data-amount=" <%= @game.price %>"
+    data-name="MarketPlace"
+    data-description=" <%= @game.name %>"
+    data-email="<%= current_user.email %>"
+    data-locale="auto">
+  </script>
+
+
+ 
+      <% end %>
+  <% else %>
+      <p>Please login first to Buy</p>
+    <% end %>
+
+
     </div>
 
   </div>
