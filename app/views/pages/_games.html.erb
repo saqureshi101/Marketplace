@@ -1,0 +1,20 @@
+<table class="table table-condensed"> 
+	<thead> 
+		<tr> 
+			<th>Id</th> 
+			<th>Name</th> 
+			<th>Available</th> 
+			<th></th> 
+		</tr> 
+	</thead> 
+	<tbody> 
+		<% @games.each do |game| %> 
+		<tr> 
+			<td><%= game.id %></td>
+			<td><%= link_to game.name, game_path(game) %></td> 
+			<td><%= game.availability %></td> 
+			<td><%= link_to "edit", edit_game_path(game) %></td> 
+		</tr> 
+		<% end %>
+ </tbody> 
+</table>
