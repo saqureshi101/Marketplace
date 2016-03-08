@@ -4,20 +4,42 @@ class Sale < ActiveRecord::Base
 	belongs_to :game
 
 
-def charge_card
+		include AASM
+    
+    aasm column: 'state' do 
+    	state :pending, initial: true 
+		state :processing 
+		state :finished 
+		state :errored 
+		event :process, after: :charge_card do 
+			transitions from: :pending, to: :processing
+		end
+
+		event :finish do 
+			transitions from: :processing, to: :finished 
+		end
+
+		event :fail do  
+			transitions from: :processing, to: :errored 
+		end
+    end
+
+def charge_card 
 		begin
-			save!
+			save! 
 			charge = Stripe::Charge.create(
-				amount: self.amount,
+				amount: self.amount, 
 				currency: "usd",
 				card: self.stripe_token,
 				description: "Game Sale"
 				)
-			self.update(stripe_id: charge.id)
-			self.finish!
+			self.update(stripe_id: charge.id)	 
+			self.finish! 
 		rescue Stripe::StripeError => e
 			self.update_attributes(error: e.message)
 			self.fail!
+		rescue Stripe::StripeError => e
+			
 		end
 	end
 
@@ -26,4 +48,5 @@ def charge_card
 		def populate_guid
 			self.guid = SecureRandom.uuid()
 		end
+
 end
